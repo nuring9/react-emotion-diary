@@ -24,7 +24,7 @@ const reducer = (state, action) => {
     }
     case "EDIT": {
       newState = state.map((it) =>
-        it.id === action.data.id ? { ...action.date } : it
+        it.id === action.data.id ? { ...action.data } : it
       );
       break;
     }
@@ -35,11 +35,43 @@ const reducer = (state, action) => {
 };
 
 export const DiaryStateContext = React.createContext();
-
 export const DiaryDispatchContext = React.createContext();
 
+const dummyData = [
+  {
+    id: 1,
+    emotion: 1,
+    content: "오늘의 일기1번",
+    date: 1675866840103,
+  },
+  {
+    id: 2,
+    emotion: 2,
+    content: "오늘의 일기2번",
+    date: 1675866840104,
+  },
+  {
+    id: 3,
+    emotion: 3,
+    content: "오늘의 일기3번",
+    date: 1675866840105,
+  },
+  {
+    id: 4,
+    emotion: 4,
+    content: "오늘의 일기4번",
+    date: 1675866840106,
+  },
+  {
+    id: 5,
+    emotion: 5,
+    content: "오늘의 일기5번",
+    date: 1675866840107,
+  },
+];
+
 function App() {
-  const [data, dispatch] = useReducer(reducer, []);
+  const [data, dispatch] = useReducer(reducer, dummyData);
 
   const dataId = useRef(0);
 
@@ -81,7 +113,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
           </div>
